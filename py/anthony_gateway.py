@@ -6,7 +6,7 @@ import json
 #
 THINGSBOARD_SERVER = 'thingsboard.cloud'
 ACCESS_TOKEN = 'opfrww192q88qvnmejgz' # DO NOT CHANGE THIS
-SERIAL_PORT = '/dev/ttyS0' # change this as well
+SERIAL_PORT = '/dev/ttyS0' # change this
 BAUD_RATE = 9600
 
 # handles the commands coming from the dashboard
@@ -47,6 +47,7 @@ except Exception as e:
 try:
     while True:
         if ser.in_waiting > 0:
+            # arduino sends: "{00.00,00.00} "
             line = ser.readline().decode('utf-8').strip()
             if "," in line:
                 parts = line.split(',')

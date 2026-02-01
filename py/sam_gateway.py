@@ -6,7 +6,7 @@ import json
 # config
 THINGSBOARD_SERVER = 'thingsboard.cloud'
 ACCESS_TOKEN = '3hgwhna454mn53lzgjs9' # DO NOT CHANGE THIS
-SERIAL_PORT = '/dev/ttyS0' # change this as well
+SERIAL_PORT = '/dev/ttyS0' # change this 
 BAUD_RATE = 9600
 
 # handle rpc
