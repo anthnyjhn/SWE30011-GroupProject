@@ -1,4 +1,6 @@
 # Instructions
+**NOTE:** The python code is designed for the sketches you uploaded. so please dont change it without letting me know.
+
 
 ## Local setup
 Install these required python libraries:
