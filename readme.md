@@ -1,6 +1,8 @@
 # Instructions
 **NOTE:** The python code is designed for the sketches you uploaded. so please dont change it without letting me know.
 
+## Download Code
+Get the python code located in /py folder. Dont run it yet.
 
 ## Local setup
 Install these required python libraries:
@@ -10,9 +12,6 @@ Install these required python libraries:
 ```bash
 pip install pyserial tb-mqtt-client
 ```
-
-## Download Code
-Get the python code located in /py folder.
 
 ## Thingsboard Setup
 IMPORTANT: Copy your ACCESS CODE from your python code and replace the XXXXXX in the link below. Run the command in terminal
@@ -26,12 +25,13 @@ In Linux, you might need to install curl
 sudo apt-get install curl
 ```
 
-**After running it please screenshot the result and notify me on DC.**
+**After running it please screenshot the result and notify me on Discord.**
 
 ## Run the python code:
 ```bash
 python3 yourname_gateway.py
 ```
+
 and you should see something like this:
 ```bash
 admin@raspberry:~/Workspace/group_project/py $ python3 anthony_gateway.py
