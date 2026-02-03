@@ -20,6 +20,12 @@ def on_message(client, userdata, msg):
             ser.write(b'4')
         else:
             ser.write(b'3')
+    elif method == "setThreshold":
+        if payload.get("params") == "increase":
+            ser.write(b'5')
+        elif payload.get("params") == "decrease":
+            ser.write(b'6')
+
 
 # setup mqtt
 client = mqtt.Client()
@@ -54,7 +60,8 @@ try:
                 if len(parts) == 3:
                     telemetry = {
                         "humidity": float(parts[0]),
-                        "temperature": float(parts[1])
+                        "temperature": float(parts[1]),
+                        "threshold": float(parts[2])
                     }
                     client.publish("v1/devices/me/telemetry", json.dumps(telemetry))
                     print(f"Sent to cloud: {telemetry}")
