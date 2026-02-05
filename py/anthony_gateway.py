@@ -8,17 +8,24 @@ THINGSBOARD_SERVER = 'thingsboard.cloud'
 ACCESS_TOKEN = 'opfrww192q88qvnmejgz' # DO NOT CHANGE THIS
 SERIAL_PORT = '/dev/ttyS0' # change this
 BAUD_RATE = 9600
+IsActuatorOn = False
 
 # handles the commands coming from the dashboard
 def on_message(client, userdata, msg):
+    global IsActuatorOn
+
     payload = json.loads(msg.payload.decode())
     method = payload.get("method")
     print(f"Command received: {method}")
     
     if method == "setFan":
         if payload.get("params") is True:
+            IsActuatorOn = True
+            print("Actuator set to true")
             ser.write(b'4')
         else:
+            IsActuatorOn = False
+            print("Actuator set to false")
             ser.write(b'3')
     elif method == "setThreshold":
         if payload.get("params") == "increase":
@@ -61,7 +68,8 @@ try:
                     telemetry = {
                         "humidity": float(parts[0]),
                         "temperature": float(parts[1]),
-                        "threshold": float(parts[2])
+                        "threshold": float(parts[2]), 
+                        "isActuatorOn": IsActuatorOn
                     }
                     client.publish("v1/devices/me/telemetry", json.dumps(telemetry))
                     print(f"Sent to cloud: {telemetry}")

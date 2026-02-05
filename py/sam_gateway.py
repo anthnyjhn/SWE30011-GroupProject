@@ -8,9 +8,12 @@ THINGSBOARD_SERVER = 'thingsboard.cloud'
 ACCESS_TOKEN = '3hgwhna454mn53lzgjs9' # DO NOT CHANGE THIS
 SERIAL_PORT = '/dev/ttyS0' # change this 
 BAUD_RATE = 9600
+IsActuatorOn = False
 
 # handle rpc
 def on_message(client, userdata, msg):
+    global IsActuatorOn
+
     try:
         payload = json.loads(msg.payload.decode())
         method = payload.get("method")
@@ -20,9 +23,11 @@ def on_message(client, userdata, msg):
             if payload.get("params") is True:
                 print("Turning LED ON")
                 ser.write(b"LED=ON\n")
+                IsActuatorOn = True
             else:
                 print("Turning LED OFF")
                 ser.write(b"LED=OFF\n")
+                IsActuatorOn = False
     except Exception as e:
         print(f"Error processing command: {e}")
 
@@ -62,7 +67,7 @@ try:
                         if "VALUE=" in part:
                             val = int(part.split('=')[1])
                     
-                    telemetry = {"lightLevel": val}
+                    telemetry = {"lightLevel": val, "isActuatorOn": IsActuatorOn}
                     
                     client.publish("v1/devices/me/telemetry", json.dumps(telemetry))
                     print(f"Sent: {telemetry}")
